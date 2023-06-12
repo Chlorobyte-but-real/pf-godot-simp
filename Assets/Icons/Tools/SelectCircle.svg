@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   height="16"
+   viewBox="0 0 16 16"
+   width="16"
+   version="1.1"
+   id="svg4"
+   sodipodi:docname="SelectCircleTool.svg"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs8" />
+  <sodipodi:namedview
+     id="namedview6"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="45.254834"
+     inkscape:cx="14.970776"
+     inkscape:cy="6.8390484"
+     inkscape:window-width="2488"
+     inkscape:window-height="1393"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg4" />
+  <path
+     d="M 1,1 V 3 H 3 V 1 Z m 12,0 v 2 h 2 V 1 Z M 1,13 v 2 h 2 v -2 z m 12,0 v 2 h 2 v -2 z"
+     fill="#e0e0e0"
+     fill-opacity="0.99608"
+     id="path2"
+     sodipodi:nodetypes="cccccccccccccccccccc" />
+  <path
+     d="M 8,1 C 6.5796929,0.99961769 5.163775,1.4404916 4,2.2558594 V 4 C 3.4181773,4.00794 2.8193935,3.9842 2.2480494,4.011719 0.5892469,6.3356695 0.59306404,9.6791334 2.2558594,12.000003 h 1.7441445 c 0.00794,0.581818 -0.0158,1.180609 0.011719,1.751941 2.3239525,1.658806 5.667406,1.654987 7.9882841,-0.0078 v -1.744148 c 0.581817,-0.0079 1.18061,0.0158 1.751941,-0.01172 C 15.410576,9.6643756 15.406728,6.3208339 13.744141,4 H 12 C 11.992056,3.4181776 12.015801,2.8193918 11.98828,2.2480494 10.825794,1.4366826 9.4168797,1.0002303 8,1 Z m 0,2 c 2.133943,-0.049411 4.197055,1.4280753 4.779518,3.4915818 0.663514,2.0892799 -0.168876,4.5818392 -2.062323,5.7351302 C 8.6310423,13.584501 5.5597545,13.114033 4.0509109,11.108203 2.4631911,9.1328361 2.7017613,5.9627339 4.6151607,4.2838073 5.5287469,3.4470614 6.7644762,2.9934524 8,3 Z"
+     fill="#e0e0e0"
+     fill-opacity="0.99608"
+     id="path315"
+     sodipodi:nodetypes="cccccccccccccccccccc" />
+</svg>

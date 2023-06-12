@@ -1,0 +1,56 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=5]
+code = "shader_type canvas_item;
+render_mode blend_mix;
+
+uniform float radius;
+uniform vec4 borderColor : hint_color;
+uniform float borderType;
+const float PI = 3.14159265358979323846264333;
+
+vec2 rotate(vec2 v, float a) {
+	float s = sin(a);
+	float c = cos(a);
+	mat2 m = mat2(vec2(c, -s), vec2(s, c));
+	return m * v;
+}
+
+void fragment() {
+	float _radius = radius;
+	if (borderType == -1.0) // both
+		_radius /= 2.0;
+	
+	vec4 result = vec4(0.0);
+	float sum = 0.0;
+	
+	float currentAlpha = round(texture(SCREEN_TEXTURE, SCREEN_UV, 0.0).a);
+	if (currentAlpha == borderType) discard;
+	
+	bool isBorder = false;
+	for (float angle = 0.0; angle < PI * 2.0 - 0.01; angle += PI / _radius)
+	{
+		vec2 rotated = rotate(vec2(1.0, 0.0), angle) * SCREEN_PIXEL_SIZE;
+		
+		for (float dist = _radius; dist > 0.0; dist--)
+		{
+			float alpha = round(texture(SCREEN_TEXTURE, SCREEN_UV + rotated * dist, 0.0).a);
+			if (alpha != currentAlpha)
+			{
+				COLOR = vec4(borderColor.rgb, 1.0);
+				isBorder = true;
+				break;
+			}
+		}
+	}
+	
+	if (!isBorder)
+		discard;
+}
+"
+
+[resource]
+shader = SubResource( 5 )
+shader_param/radius = 20.0
+shader_param/borderColor = Color( 0, 0, 0, 1 )
+shader_param/borderType = null

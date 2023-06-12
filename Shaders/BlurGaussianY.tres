@@ -1,0 +1,32 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=5]
+code = "shader_type canvas_item;
+render_mode blend_mix;
+
+uniform float radius;
+const float PI = 3.14159265358979323846264333;
+
+void fragment() {
+	vec4 result = vec4(0.0);
+	float sum = 0.0;
+	
+	float twoRadiusSquaredRecip = 1.0 / (2.0 * radius * radius);
+	float sqrtTwoPiTimesRadiusRecip = 1.0 / (sqrt(2.0 * PI) * radius);
+	
+	for (float r = -radius; r <= radius; r++) {
+		float x = r;
+		x *= x;
+		
+		float w = sqrtTwoPiTimesRadiusRecip * exp(-x * twoRadiusSquaredRecip);
+		result += w * texture(SCREEN_TEXTURE, SCREEN_UV + r * vec2(0.0, SCREEN_PIXEL_SIZE.y), 0.0);
+		sum += w;
+	}
+	
+	COLOR = result / sum;
+}
+"
+
+[resource]
+shader = SubResource( 5 )
+shader_param/radius = null

@@ -1,0 +1,895 @@
+[gd_scene load_steps=39 format=2]
+
+[ext_resource path="res://ImageEditLayer/ImageEditLayer.tscn" type="PackedScene" id=1]
+[ext_resource path="res://GUIWindows/Layers/Layers.tscn" type="PackedScene" id=2]
+[ext_resource path="res://GUIWindows/Toolbox/Toolbox.tscn" type="PackedScene" id=3]
+[ext_resource path="res://GUIWindows/MenuFile.gd" type="Script" id=4]
+[ext_resource path="res://gui_theme.tres" type="Theme" id=5]
+[ext_resource path="res://GUIWindows/LineEditNumber.gd" type="Script" id=6]
+[ext_resource path="res://GUIWindows/NewProject.gd" type="Script" id=7]
+[ext_resource path="res://GUIWindows/ToolProperties/ToolProperties.tscn" type="PackedScene" id=8]
+[ext_resource path="res://GUIWindows/MenuEdit.gd" type="Script" id=9]
+[ext_resource path="res://GUIWindows/MenuColors.gd" type="Script" id=10]
+[ext_resource path="res://GUIWindows/MenuImage.gd" type="Script" id=11]
+[ext_resource path="res://GUIWindows/SizeDialog.gd" type="Script" id=12]
+[ext_resource path="res://GUIWindows/MenuLayer.gd" type="Script" id=13]
+[ext_resource path="res://GUIWindows/DockedUI.gd" type="Script" id=14]
+[ext_resource path="res://GUIWindows/MenuFilters.gd" type="Script" id=15]
+[ext_resource path="res://GUIWindows/BlurShaderDialog.gd" type="Script" id=16]
+[ext_resource path="res://Assets/Icons/icon_zoom_more.svg" type="Texture" id=17]
+[ext_resource path="res://Assets/Icons/icon_zoom_reset.svg" type="Texture" id=18]
+[ext_resource path="res://Assets/Icons/icon_zoom_less.svg" type="Texture" id=19]
+[ext_resource path="res://ImageEditLayer/ZoomUI.gd" type="Script" id=20]
+[ext_resource path="res://Assets/Fonts/BertSans/BertSans-Regular.ttf" type="DynamicFontData" id=21]
+[ext_resource path="res://ImageEditLayer/BtnZoomOut.gd" type="Script" id=22]
+[ext_resource path="res://ImageEditLayer/BtnZoomIn.gd" type="Script" id=23]
+[ext_resource path="res://ImageEditLayer/BtnZoomReset.gd" type="Script" id=24]
+[ext_resource path="res://GUIWindows/SafeArea.gd" type="Script" id=25]
+[ext_resource path="res://Assets/Icons/Lang/hu.svg" type="Texture" id=26]
+[ext_resource path="res://Assets/Icons/Lang/us.svg" type="Texture" id=27]
+[ext_resource path="res://GUIWindows/LanguageSelect.gd" type="Script" id=28]
+[ext_resource path="res://GUIWindows/BorderShaderDialog.gd" type="Script" id=29]
+[ext_resource path="res://GUIWindows/ToolProperties/ValueLabel.gd" type="Script" id=30]
+[ext_resource path="res://GUIWindows/BrightnessContrastDialog.gd" type="Script" id=31]
+[ext_resource path="res://GUIWindows/HueSaturationDialog.gd" type="Script" id=32]
+[ext_resource path="res://GUIWindows/CustomShaderDialog.gd" type="Script" id=33]
+[ext_resource path="res://GUIWindows/ShaderHighlight.gd" type="Script" id=34]
+[ext_resource path="res://Assets/Fonts/Hack-Regular.ttf" type="DynamicFontData" id=35]
+
+[sub_resource type="DynamicFont" id=1]
+outline_size = 2
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+font_data = ExtResource( 21 )
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends ColorPickerButton
+
+func _process(_delta) -> void:
+	$\"../\".color = color
+
+func _color_changed(color: Color) -> void:
+	self.color = color
+"
+
+[sub_resource type="DynamicFont" id=3]
+size = 12
+font_data = ExtResource( 35 )
+
+[node name="gaming" type="Node"]
+
+[node name="ImageEditLayer" parent="." instance=ExtResource( 1 )]
+
+[node name="DockedUILayer" type="CanvasLayer" parent="."]
+
+[node name="SafeArea" type="Control" parent="DockedUILayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 25 )
+
+[node name="DockedUI" type="Control" parent="DockedUILayer/SafeArea"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -1.0
+margin_top = 23.0
+margin_right = 1.0
+margin_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 14 )
+
+[node name="Toolbox" parent="DockedUILayer/SafeArea/DockedUI" instance=ExtResource( 3 )]
+anchor_right = 0.0
+anchor_bottom = 0.5
+margin_right = 210.0
+margin_bottom = 1.0
+
+[node name="ToolProperties" parent="DockedUILayer/SafeArea/DockedUI" instance=ExtResource( 8 )]
+margin_right = 210.0
+
+[node name="Layers" parent="DockedUILayer/SafeArea/DockedUI" instance=ExtResource( 2 )]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -300.0
+margin_right = 0.0
+
+[node name="MenuBar" type="Panel" parent="DockedUILayer/SafeArea"]
+anchor_right = 1.0
+margin_left = -1.0
+margin_top = -1.0
+margin_right = 1.0
+margin_bottom = 24.0
+theme = ExtResource( 5 )
+
+[node name="HBox" type="HBoxContainer" parent="DockedUILayer/SafeArea/MenuBar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_top = 1.0
+margin_right = -1.0
+margin_bottom = -1.0
+theme = ExtResource( 5 )
+
+[node name="File" type="MenuButton" parent="DockedUILayer/SafeArea/MenuBar/HBox"]
+margin_right = 34.0
+margin_bottom = 23.0
+focus_mode = 2
+text = "File"
+items = [ "New", null, 0, false, false, 0, 0, null, "", false, "Open...", null, 0, false, false, 1, 0, null, "", false, "Import image to layer", null, 0, false, false, 2, 0, null, "", false, "", null, 0, false, false, 3, 0, null, "", true, "Save project", null, 0, false, false, 4, 0, null, "", false, "Export as image", null, 0, false, false, 5, 0, null, "", false ]
+switch_on_hover = true
+script = ExtResource( 4 )
+
+[node name="Edit" type="MenuButton" parent="DockedUILayer/SafeArea/MenuBar/HBox"]
+margin_left = 36.0
+margin_right = 72.0
+margin_bottom = 23.0
+focus_mode = 2
+text = "Edit"
+items = [ "Undo (Ctrl+Z)", null, 0, false, false, 0, 0, null, "", false, "Redo (Ctrl+Shift+Z)", null, 0, false, false, 1, 0, null, "", false ]
+switch_on_hover = true
+script = ExtResource( 9 )
+
+[node name="Image" type="MenuButton" parent="DockedUILayer/SafeArea/MenuBar/HBox"]
+margin_left = 74.0
+margin_right = 123.0
+margin_bottom = 23.0
+focus_mode = 2
+text = "Image"
+items = [ "Flip (H)", null, 0, false, false, 0, 0, null, "", false, "Flip (V)", null, 0, false, false, 1, 0, null, "", false, "Resize", null, 0, false, false, 2, 0, null, "", false, "Resize canvas", null, 0, false, false, 3, 0, null, "", false ]
+switch_on_hover = true
+script = ExtResource( 11 )
+
+[node name="Layer" type="MenuButton" parent="DockedUILayer/SafeArea/MenuBar/HBox"]
+margin_left = 125.0
+margin_right = 170.0
+margin_bottom = 23.0
+focus_mode = 2
+text = "Layer"
+items = [ "Flip (H)", null, 0, false, false, 0, 0, null, "", false, "Flip (V)", null, 0, false, false, 1, 0, null, "", false, "Resize", null, 0, false, false, 2, 0, null, "", false, "Resize layer boundary", null, 0, false, false, 3, 0, null, "", false, "Layer boundary to image", null, 0, false, false, 4, 0, null, "", false, "Crop layer to content", null, 0, false, false, 5, 0, null, "", false ]
+switch_on_hover = true
+script = ExtResource( 13 )
+
+[node name="Colors" type="MenuButton" parent="DockedUILayer/SafeArea/MenuBar/HBox"]
+margin_left = 172.0
+margin_right = 225.0
+margin_bottom = 23.0
+focus_mode = 2
+text = "Colors"
+items = [ "Brightness/Contrast", null, 0, false, false, 0, 0, null, "", false, "Hue/Saturation", null, 0, false, false, 1, 0, null, "", false, "", null, 0, false, false, 2, 0, null, "", true, "Invert", null, 0, false, false, 3, 0, null, "", false, "Value Invert", null, 0, false, false, 4, 0, null, "", false, "Grayscale", null, 0, false, false, 5, 0, null, "", false ]
+switch_on_hover = true
+script = ExtResource( 10 )
+
+[node name="Filters" type="MenuButton" parent="DockedUILayer/SafeArea/MenuBar/HBox"]
+margin_left = 227.0
+margin_right = 278.0
+margin_bottom = 23.0
+focus_mode = 2
+text = "Filters"
+items = [ "Blur (Gaussian)", null, 0, false, false, 0, 0, null, "", false, "Border", null, 0, false, false, 1, 0, null, "", false, "", null, 0, false, false, 2, 0, null, "", true, "Custom shader...", null, 0, false, false, 3, 0, null, "", false ]
+switch_on_hover = true
+script = ExtResource( 15 )
+
+[node name="NOTRANS_LanguageSelect" type="OptionButton" parent="DockedUILayer/SafeArea/MenuBar"]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -56.0
+text = "hu"
+icon = ExtResource( 26 )
+clip_text = true
+items = [ "def", ExtResource( 27 ), false, 0, null, "hu", ExtResource( 26 ), false, 1, null ]
+selected = 1
+script = ExtResource( 28 )
+
+[node name="ZoomUI" type="HBoxContainer" parent="DockedUILayer/SafeArea"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -300.0
+grow_horizontal = 0
+grow_vertical = 0
+rect_min_size = Vector2( 0, 24 )
+alignment = 2
+script = ExtResource( 20 )
+
+[node name="Label" type="Label" parent="DockedUILayer/SafeArea/ZoomUI"]
+margin_top = 1.0
+margin_right = 38.0
+margin_bottom = 23.0
+custom_fonts/font = SubResource( 1 )
+text = "100%"
+
+[node name="ZoomOut" type="TextureButton" parent="DockedUILayer/SafeArea/ZoomUI"]
+margin_left = 42.0
+margin_right = 66.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 24, 24 )
+texture_normal = ExtResource( 19 )
+texture_pressed = ExtResource( 19 )
+texture_hover = ExtResource( 19 )
+texture_disabled = ExtResource( 19 )
+texture_focused = ExtResource( 19 )
+expand = true
+stretch_mode = 5
+script = ExtResource( 22 )
+
+[node name="ZoomReset" type="TextureButton" parent="DockedUILayer/SafeArea/ZoomUI"]
+margin_left = 70.0
+margin_right = 94.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 24, 24 )
+texture_normal = ExtResource( 18 )
+texture_pressed = ExtResource( 18 )
+texture_hover = ExtResource( 18 )
+texture_disabled = ExtResource( 18 )
+texture_focused = ExtResource( 18 )
+expand = true
+stretch_mode = 5
+script = ExtResource( 24 )
+
+[node name="ZoomIn" type="TextureButton" parent="DockedUILayer/SafeArea/ZoomUI"]
+margin_left = 98.0
+margin_right = 122.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 24, 24 )
+texture_normal = ExtResource( 17 )
+texture_pressed = ExtResource( 17 )
+texture_hover = ExtResource( 17 )
+texture_disabled = ExtResource( 17 )
+texture_focused = ExtResource( 17 )
+expand = true
+stretch_mode = 5
+script = ExtResource( 23 )
+
+[node name="DialogLayer" type="CanvasLayer" parent="."]
+
+[node name="NewProjectOrLayer" type="WindowDialog" parent="DialogLayer"]
+margin_right = 250.0
+margin_bottom = 110.0
+theme = ExtResource( 5 )
+window_title = "New project"
+script = ExtResource( 7 )
+
+[node name="Button" type="Button" parent="DialogLayer/NewProjectOrLayer"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = -22.0
+margin_right = -2.0
+margin_bottom = -2.0
+text = "Create project"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DialogLayer/NewProjectOrLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -22.0
+mouse_filter = 2
+
+[node name="Width" type="HSplitContainer" parent="DialogLayer/NewProjectOrLayer/VBoxContainer"]
+margin_right = 246.0
+margin_bottom = 24.0
+dragger_visibility = 2
+
+[node name="Label" type="Label" parent="DialogLayer/NewProjectOrLayer/VBoxContainer/Width"]
+margin_top = 1.0
+margin_right = 123.0
+margin_bottom = 23.0
+size_flags_horizontal = 3
+text = "Width:"
+
+[node name="LineEdit" type="LineEdit" parent="DialogLayer/NewProjectOrLayer/VBoxContainer/Width"]
+margin_left = 123.0
+margin_right = 246.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+text = "640"
+placeholder_text = "Image width"
+script = ExtResource( 6 )
+
+[node name="Height" type="HSplitContainer" parent="DialogLayer/NewProjectOrLayer/VBoxContainer"]
+margin_top = 28.0
+margin_right = 246.0
+margin_bottom = 52.0
+dragger_visibility = 2
+
+[node name="Label" type="Label" parent="DialogLayer/NewProjectOrLayer/VBoxContainer/Height"]
+margin_top = 1.0
+margin_right = 123.0
+margin_bottom = 23.0
+size_flags_horizontal = 3
+text = "Height:"
+
+[node name="LineEdit" type="LineEdit" parent="DialogLayer/NewProjectOrLayer/VBoxContainer/Height"]
+margin_left = 123.0
+margin_right = 246.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+text = "480"
+placeholder_text = "Image height"
+script = ExtResource( 6 )
+
+[node name="BgLayer" type="HSplitContainer" parent="DialogLayer/NewProjectOrLayer/VBoxContainer"]
+margin_top = 56.0
+margin_right = 246.0
+margin_bottom = 80.0
+dragger_visibility = 2
+
+[node name="CheckBox" type="CheckBox" parent="DialogLayer/NewProjectOrLayer/VBoxContainer/BgLayer"]
+margin_right = 246.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+pressed = true
+text = "Create background layer"
+
+[node name="Size" type="WindowDialog" parent="DialogLayer"]
+margin_right = 250.0
+margin_bottom = 110.0
+theme = ExtResource( 5 )
+window_title = "Resize Image"
+script = ExtResource( 12 )
+
+[node name="Button" type="Button" parent="DialogLayer/Size"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = -22.0
+margin_right = -2.0
+margin_bottom = -2.0
+text = "OK"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DialogLayer/Size"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -22.0
+mouse_filter = 2
+
+[node name="Width" type="HSplitContainer" parent="DialogLayer/Size/VBoxContainer"]
+margin_right = 246.0
+margin_bottom = 24.0
+dragger_visibility = 2
+
+[node name="Label" type="Label" parent="DialogLayer/Size/VBoxContainer/Width"]
+margin_top = 1.0
+margin_right = 123.0
+margin_bottom = 23.0
+size_flags_horizontal = 3
+text = "Width:"
+
+[node name="LineEdit" type="LineEdit" parent="DialogLayer/Size/VBoxContainer/Width"]
+margin_left = 123.0
+margin_right = 246.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+text = "640"
+placeholder_text = "Width"
+script = ExtResource( 6 )
+
+[node name="Height" type="HSplitContainer" parent="DialogLayer/Size/VBoxContainer"]
+margin_top = 28.0
+margin_right = 246.0
+margin_bottom = 52.0
+dragger_visibility = 2
+
+[node name="Label" type="Label" parent="DialogLayer/Size/VBoxContainer/Height"]
+margin_top = 1.0
+margin_right = 123.0
+margin_bottom = 23.0
+size_flags_horizontal = 3
+text = "Height:"
+
+[node name="LineEdit" type="LineEdit" parent="DialogLayer/Size/VBoxContainer/Height"]
+margin_left = 123.0
+margin_right = 246.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+text = "480"
+placeholder_text = "Height"
+script = ExtResource( 6 )
+
+[node name="Interpolation" type="HSplitContainer" parent="DialogLayer/Size/VBoxContainer"]
+margin_top = 56.0
+margin_right = 246.0
+margin_bottom = 78.0
+dragger_visibility = 2
+
+[node name="Label" type="Label" parent="DialogLayer/Size/VBoxContainer/Interpolation"]
+margin_right = 123.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+text = "Scaling type:"
+
+[node name="InterpolationOption" type="OptionButton" parent="DialogLayer/Size/VBoxContainer/Interpolation"]
+margin_left = 123.0
+margin_right = 246.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Lanczos"
+items = [ "Nearest", null, false, 0, null, "Bilinear", null, false, 1, null, "Bicubic", null, false, 2, null, "Lanczos", null, false, 3, null ]
+selected = 3
+
+[node name="BlurShader" type="WindowDialog" parent="DialogLayer"]
+margin_right = 250.0
+margin_bottom = 50.0
+theme = ExtResource( 5 )
+window_title = "New project"
+script = ExtResource( 16 )
+
+[node name="Button" type="Button" parent="DialogLayer/BlurShader"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = -22.0
+margin_right = -2.0
+margin_bottom = -2.0
+text = "OK"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DialogLayer/BlurShader"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -22.0
+mouse_filter = 2
+
+[node name="Radius" type="HSplitContainer" parent="DialogLayer/BlurShader/VBoxContainer"]
+margin_right = 246.0
+margin_bottom = 24.0
+split_offset = -30
+dragger_visibility = 2
+
+[node name="Label" type="Label" parent="DialogLayer/BlurShader/VBoxContainer/Radius"]
+margin_top = 1.0
+margin_right = 93.0
+margin_bottom = 23.0
+size_flags_horizontal = 3
+text = "Radius:"
+
+[node name="LineEdit" type="LineEdit" parent="DialogLayer/BlurShader/VBoxContainer/Radius"]
+margin_left = 93.0
+margin_right = 246.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+text = "3"
+placeholder_text = "Radius"
+script = ExtResource( 6 )
+
+[node name="BorderShader" type="WindowDialog" parent="DialogLayer"]
+margin_right = 250.0
+margin_bottom = 110.0
+theme = ExtResource( 5 )
+window_title = "Border"
+script = ExtResource( 29 )
+
+[node name="Button" type="Button" parent="DialogLayer/BorderShader"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = -22.0
+margin_right = -2.0
+margin_bottom = -2.0
+text = "OK"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DialogLayer/BorderShader"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -22.0
+mouse_filter = 2
+
+[node name="Radius" type="HSplitContainer" parent="DialogLayer/BorderShader/VBoxContainer"]
+margin_right = 246.0
+margin_bottom = 24.0
+split_offset = -30
+dragger_visibility = 2
+
+[node name="Label" type="Label" parent="DialogLayer/BorderShader/VBoxContainer/Radius"]
+margin_top = 1.0
+margin_right = 93.0
+margin_bottom = 23.0
+size_flags_horizontal = 3
+text = "Width:"
+
+[node name="LineEdit" type="LineEdit" parent="DialogLayer/BorderShader/VBoxContainer/Radius"]
+margin_left = 93.0
+margin_right = 246.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+text = "3"
+placeholder_text = "Radius"
+script = ExtResource( 6 )
+
+[node name="Type" type="HSplitContainer" parent="DialogLayer/BorderShader/VBoxContainer"]
+margin_top = 28.0
+margin_right = 246.0
+margin_bottom = 50.0
+split_offset = -30
+dragger_visibility = 2
+
+[node name="Label" type="Label" parent="DialogLayer/BorderShader/VBoxContainer/Type"]
+margin_right = 93.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+text = "Type:"
+
+[node name="BorderType" type="OptionButton" parent="DialogLayer/BorderShader/VBoxContainer/Type"]
+margin_left = 93.0
+margin_right = 246.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Inner"
+items = [ "Inner", null, false, 1, null, "Middle", null, false, 2, null, "Outer", null, false, 3, null ]
+selected = 0
+
+[node name="Color" type="HSplitContainer" parent="DialogLayer/BorderShader/VBoxContainer"]
+margin_top = 54.0
+margin_right = 246.0
+margin_bottom = 76.0
+split_offset = -30
+dragger_visibility = 2
+
+[node name="Label" type="Label" parent="DialogLayer/BorderShader/VBoxContainer/Color"]
+margin_right = 93.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+text = "Color:"
+
+[node name="BorderColor" type="ColorRect" parent="DialogLayer/BorderShader/VBoxContainer/Color"]
+margin_left = 93.0
+margin_right = 246.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 50, 20 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="DialogLayer/BorderShader/VBoxContainer/Color/BorderColor"]
+self_modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 1, 1, 1, 1 )
+edit_alpha = false
+script = SubResource( 2 )
+
+[node name="BrightnessContrast" type="WindowDialog" parent="DialogLayer"]
+margin_right = 250.0
+margin_bottom = 80.0
+theme = ExtResource( 5 )
+window_title = "Brightness/Contrast"
+script = ExtResource( 31 )
+
+[node name="Button" type="Button" parent="DialogLayer/BrightnessContrast"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = -22.0
+margin_right = -2.0
+margin_bottom = -2.0
+text = "OK"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DialogLayer/BrightnessContrast"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -22.0
+mouse_filter = 2
+
+[node name="Brightness" type="HSplitContainer" parent="DialogLayer/BrightnessContrast/VBoxContainer"]
+margin_right = 246.0
+margin_bottom = 22.0
+split_offset = -30
+dragger_visibility = 2
+
+[node name="Label" type="Label" parent="DialogLayer/BrightnessContrast/VBoxContainer/Brightness"]
+margin_right = 93.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+text = "Brightness:"
+
+[node name="ValuePercent" type="HSlider" parent="DialogLayer/BrightnessContrast/VBoxContainer/Brightness"]
+margin_left = 93.0
+margin_right = 246.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 200.0
+value = 100.0
+
+[node name="Label" type="Label" parent="DialogLayer/BrightnessContrast/VBoxContainer/Brightness/ValuePercent"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "0"
+align = 2
+script = ExtResource( 30 )
+
+[node name="Contrast" type="HSplitContainer" parent="DialogLayer/BrightnessContrast/VBoxContainer"]
+margin_top = 26.0
+margin_right = 246.0
+margin_bottom = 48.0
+split_offset = -30
+dragger_visibility = 2
+
+[node name="Label" type="Label" parent="DialogLayer/BrightnessContrast/VBoxContainer/Contrast"]
+margin_right = 93.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+text = "Contrast:"
+
+[node name="ValuePercent" type="HSlider" parent="DialogLayer/BrightnessContrast/VBoxContainer/Contrast"]
+margin_left = 93.0
+margin_right = 246.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 200.0
+value = 100.0
+
+[node name="Label" type="Label" parent="DialogLayer/BrightnessContrast/VBoxContainer/Contrast/ValuePercent"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "0"
+align = 2
+script = ExtResource( 30 )
+
+[node name="HueSaturation" type="WindowDialog" parent="DialogLayer"]
+margin_right = 250.0
+margin_bottom = 100.0
+theme = ExtResource( 5 )
+window_title = "Hue/Saturation"
+script = ExtResource( 32 )
+
+[node name="Button" type="Button" parent="DialogLayer/HueSaturation"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = -22.0
+margin_right = -2.0
+margin_bottom = -2.0
+text = "OK"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DialogLayer/HueSaturation"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -22.0
+mouse_filter = 2
+
+[node name="Hue" type="HSplitContainer" parent="DialogLayer/HueSaturation/VBoxContainer"]
+margin_right = 246.0
+margin_bottom = 22.0
+split_offset = -30
+dragger_visibility = 2
+
+[node name="Label" type="Label" parent="DialogLayer/HueSaturation/VBoxContainer/Hue"]
+margin_right = 93.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+text = "Hue:"
+
+[node name="ValueDegrees" type="HSlider" parent="DialogLayer/HueSaturation/VBoxContainer/Hue"]
+margin_left = 93.0
+margin_right = 246.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = -180.0
+max_value = 180.0
+value = 100.0
+
+[node name="Label" type="Label" parent="DialogLayer/HueSaturation/VBoxContainer/Hue/ValueDegrees"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "0"
+align = 2
+script = ExtResource( 30 )
+
+[node name="Saturation" type="HSplitContainer" parent="DialogLayer/HueSaturation/VBoxContainer"]
+margin_top = 26.0
+margin_right = 246.0
+margin_bottom = 48.0
+split_offset = -30
+dragger_visibility = 2
+
+[node name="Label" type="Label" parent="DialogLayer/HueSaturation/VBoxContainer/Saturation"]
+margin_right = 93.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+text = "Saturation:"
+
+[node name="ValuePercent" type="HSlider" parent="DialogLayer/HueSaturation/VBoxContainer/Saturation"]
+margin_left = 93.0
+margin_right = 246.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = -100.0
+value = 100.0
+
+[node name="Label" type="Label" parent="DialogLayer/HueSaturation/VBoxContainer/Saturation/ValuePercent"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "0"
+align = 2
+script = ExtResource( 30 )
+
+[node name="Lightness" type="HSplitContainer" parent="DialogLayer/HueSaturation/VBoxContainer"]
+margin_top = 52.0
+margin_right = 246.0
+margin_bottom = 74.0
+split_offset = -30
+dragger_visibility = 2
+
+[node name="Label" type="Label" parent="DialogLayer/HueSaturation/VBoxContainer/Lightness"]
+margin_right = 93.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+text = "Lightness:"
+
+[node name="ValuePercent" type="HSlider" parent="DialogLayer/HueSaturation/VBoxContainer/Lightness"]
+margin_left = 93.0
+margin_right = 246.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = -100.0
+value = 100.0
+
+[node name="Label" type="Label" parent="DialogLayer/HueSaturation/VBoxContainer/Lightness/ValuePercent"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "0"
+align = 2
+script = ExtResource( 30 )
+
+[node name="CustomShader" type="WindowDialog" parent="DialogLayer"]
+margin_right = 400.0
+margin_bottom = 320.0
+theme = ExtResource( 5 )
+window_title = "Run custom shader"
+script = ExtResource( 33 )
+
+[node name="Button" type="Button" parent="DialogLayer/CustomShader"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = -22.0
+margin_right = -2.0
+margin_bottom = -2.0
+text = "Run"
+
+[node name="TextEdit" type="TextEdit" parent="DialogLayer/CustomShader"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 20.0
+margin_bottom = -20.0
+custom_fonts/font = SubResource( 3 )
+text = "shader_type canvas_item;
+render_mode blend_mix;
+
+void fragment() {
+	vec4 tex = texture(SCREEN_TEXTURE, SCREEN_UV);
+	COLOR = vec4(tex.rgb, tex.a);
+}"
+highlight_current_line = true
+syntax_highlighting = true
+show_line_numbers = true
+draw_tabs = true
+fold_gutter = true
+highlight_all_occurrences = true
+caret_blink = true
+script = ExtResource( 34 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="DialogLayer/CustomShader"]
+anchor_right = 1.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 20 )
+
+[node name="SaveButton" type="Button" parent="DialogLayer/CustomShader/HBoxContainer"]
+margin_right = 41.0
+margin_bottom = 20.0
+text = "Save"
+
+[node name="LoadButton" type="Button" parent="DialogLayer/CustomShader/HBoxContainer"]
+margin_left = 43.0
+margin_right = 85.0
+margin_bottom = 20.0
+text = "Load"
+
+[node name="Load" type="FileDialog" parent="DialogLayer/CustomShader"]
+margin_right = 600.0
+margin_bottom = 400.0
+rect_min_size = Vector2( 300, 105 )
+theme = ExtResource( 5 )
+window_title = "Open a File"
+resizable = true
+mode = 0
+access = 2
+
+[node name="Save" type="FileDialog" parent="DialogLayer/CustomShader"]
+margin_right = 600.0
+margin_bottom = 400.0
+rect_min_size = Vector2( 300, 105 )
+theme = ExtResource( 5 )
+window_title = "Save shader file"
+resizable = true
+access = 2
+
+[node name="Load" type="FileDialog" parent="DialogLayer"]
+margin_right = 600.0
+margin_bottom = 400.0
+rect_min_size = Vector2( 300, 105 )
+theme = ExtResource( 5 )
+window_title = "Open a File"
+resizable = true
+mode = 0
+access = 2
+filters = PoolStringArray( "*.simp", "*.png", "*.jpg", "*.jpeg", "*.bmp", "*.tga", "*.webp" )
+
+[node name="Import" type="FileDialog" parent="DialogLayer"]
+margin_right = 600.0
+margin_bottom = 400.0
+rect_min_size = Vector2( 300, 105 )
+theme = ExtResource( 5 )
+window_title = "Open a File"
+resizable = true
+mode = 0
+access = 2
+filters = PoolStringArray( "*.png", "*.jpg", "*.jpeg", "*.bmp", "*.tga", "*.webp" )
+
+[node name="Save" type="FileDialog" parent="DialogLayer"]
+margin_right = 600.0
+margin_bottom = 400.0
+rect_min_size = Vector2( 300, 105 )
+theme = ExtResource( 5 )
+window_title = "Save project"
+resizable = true
+access = 2
+filters = PoolStringArray( "*.simp" )
+
+[node name="Export" type="FileDialog" parent="DialogLayer"]
+margin_right = 600.0
+margin_bottom = 400.0
+rect_min_size = Vector2( 300, 105 )
+theme = ExtResource( 5 )
+window_title = "Export image file"
+resizable = true
+access = 2
+filters = PoolStringArray( "*.png", "*.exr" )
+
+[node name="ExportRenderViewport" type="Viewport" parent="DialogLayer/Export"]
+size = Vector2( 1920, 1080 )
+own_world = true
+transparent_bg = true
+use_32_bpc_depth = true
+disable_3d = true
+render_target_v_flip = true
+render_target_clear_mode = 1
+render_target_update_mode = 0
+gui_disable_input = true
+shadow_atlas_quad_0 = 0
+shadow_atlas_quad_1 = 0
+shadow_atlas_quad_2 = 0
+shadow_atlas_quad_3 = 0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="DialogLayer/Export/ExportRenderViewport"]

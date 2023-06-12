@@ -1,0 +1,44 @@
+[gd_resource type="Theme" load_steps=8 format=2]
+
+[ext_resource path="res://Assets/Fonts/BertSans/BertSans-Regular.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://gui_panel_theme.tres" type="StyleBox" id=2]
+[ext_resource path="res://label_font.tres" type="DynamicFont" id=3]
+
+[sub_resource type="DynamicFont" id=4]
+size = 14
+extra_spacing_top = -3
+extra_spacing_bottom = -2
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 14
+extra_spacing_top = -3
+extra_spacing_bottom = -2
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+content_margin_left = 4.0
+content_margin_right = 4.0
+content_margin_top = 4.0
+content_margin_bottom = 4.0
+bg_color = Color( 0.176, 0.176, 0.2, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0.0156863, 0.0156863, 0.0313726, 1 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 15
+extra_spacing_top = -3
+extra_spacing_bottom = -2
+font_data = ExtResource( 1 )
+
+[resource]
+Button/fonts/font = SubResource( 4 )
+HBoxContainer/constants/separation = 2
+Label/fonts/font = ExtResource( 3 )
+Panel/styles/panel = ExtResource( 2 )
+PopupMenu/fonts/font = SubResource( 3 )
+PopupMenu/styles/panel = SubResource( 2 )
+WindowDialog/fonts/title_font = SubResource( 5 )

@@ -1,0 +1,283 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://gui_theme.tres" type="Theme" id=1]
+[ext_resource path="res://GUIWindows/ToolProperties/ColorPickerButton.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Icons/icon_2_d.svg" type="Texture" id=3]
+[ext_resource path="res://GUIWindows/ToolProperties/SwapButton.gd" type="Script" id=4]
+[ext_resource path="res://GUIWindows/ToolProperties/ButtonSelection.gd" type="Script" id=5]
+[ext_resource path="res://GUIWindows/ToolProperties/ValueLabel.gd" type="Script" id=6]
+[ext_resource path="res://Assets/Icons/selection_mode_int.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Icons/selection_mode_set.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Icons/selection_mode_sub.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Icons/selection_mode_add.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Icons/selection_mode_xor.png" type="Texture" id=11]
+[ext_resource path="res://GUIWindows/ToolProperties/PrefsManager.gd" type="Script" id=12]
+
+[node name="ToolProperties" type="Panel"]
+anchor_top = 0.5
+anchor_bottom = 1.0
+margin_right = 200.0
+focus_mode = 1
+theme = ExtResource( 1 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_top = 1.0
+margin_right = -1.0
+margin_bottom = -1.0
+
+[node name="BrushColors" type="Control" parent="VBoxContainer"]
+margin_right = 198.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 0, 80 )
+
+[node name="Secondary" type="ColorRect" parent="VBoxContainer/BrushColors"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -12.0
+margin_top = 28.0
+margin_right = 36.0
+margin_bottom = 76.0
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="VBoxContainer/BrushColors/Secondary"]
+self_modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+property_name = "brush_color_secondary"
+
+[node name="Primary" type="ColorRect" parent="VBoxContainer/BrushColors"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -36.0
+margin_top = 4.0
+margin_right = 12.0
+margin_bottom = 52.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="VBoxContainer/BrushColors/Primary"]
+self_modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+
+[node name="SwapButton" type="TextureButton" parent="VBoxContainer/BrushColors"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = 36.0
+margin_top = 28.0
+margin_right = 60.0
+margin_bottom = 52.0
+rect_rotation = -180.0
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 3 )
+texture_hover = ExtResource( 3 )
+texture_disabled = ExtResource( 3 )
+texture_focused = ExtResource( 3 )
+expand = true
+script = ExtResource( 4 )
+
+[node name="ToolProperties" type="VBoxContainer" parent="VBoxContainer"]
+margin_top = 84.0
+margin_right = 198.0
+margin_bottom = 244.0
+script = ExtResource( 12 )
+
+[node name="SelectionMode" type="HBoxContainer" parent="VBoxContainer/ToolProperties"]
+margin_right = 198.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 0, 30 )
+script = ExtResource( 5 )
+
+[node name="Set" type="TextureButton" parent="VBoxContainer/ToolProperties/SelectionMode"]
+margin_right = 38.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+texture_normal = ExtResource( 8 )
+texture_pressed = ExtResource( 8 )
+texture_hover = ExtResource( 8 )
+texture_disabled = ExtResource( 8 )
+texture_focused = ExtResource( 8 )
+expand = true
+stretch_mode = 5
+
+[node name="Add" type="TextureButton" parent="VBoxContainer/ToolProperties/SelectionMode"]
+margin_left = 40.0
+margin_right = 78.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+texture_normal = ExtResource( 10 )
+texture_pressed = ExtResource( 10 )
+texture_hover = ExtResource( 10 )
+texture_disabled = ExtResource( 10 )
+texture_focused = ExtResource( 10 )
+expand = true
+stretch_mode = 5
+
+[node name="Subtract" type="TextureButton" parent="VBoxContainer/ToolProperties/SelectionMode"]
+margin_left = 80.0
+margin_right = 118.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+texture_normal = ExtResource( 9 )
+texture_pressed = ExtResource( 9 )
+texture_hover = ExtResource( 9 )
+texture_disabled = ExtResource( 9 )
+texture_focused = ExtResource( 9 )
+expand = true
+stretch_mode = 5
+
+[node name="Intersect" type="TextureButton" parent="VBoxContainer/ToolProperties/SelectionMode"]
+margin_left = 120.0
+margin_right = 158.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+texture_normal = ExtResource( 7 )
+texture_pressed = ExtResource( 7 )
+texture_hover = ExtResource( 7 )
+texture_disabled = ExtResource( 7 )
+texture_focused = ExtResource( 7 )
+expand = true
+stretch_mode = 5
+
+[node name="Xor" type="TextureButton" parent="VBoxContainer/ToolProperties/SelectionMode"]
+margin_left = 160.0
+margin_right = 198.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+texture_normal = ExtResource( 11 )
+texture_pressed = ExtResource( 11 )
+texture_hover = ExtResource( 11 )
+texture_disabled = ExtResource( 11 )
+texture_focused = ExtResource( 11 )
+expand = true
+stretch_mode = 5
+
+[node name="BrushRadius" type="HBoxContainer" parent="VBoxContainer/ToolProperties"]
+margin_top = 34.0
+margin_right = 198.0
+margin_bottom = 56.0
+
+[node name="Text" type="Label" parent="VBoxContainer/ToolProperties/BrushRadius"]
+margin_right = 58.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+text = "Radius:"
+
+[node name="Value" type="HSlider" parent="VBoxContainer/ToolProperties/BrushRadius"]
+margin_left = 60.0
+margin_right = 198.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 7.0
+min_value = 1.0
+max_value = 50.0
+value = 1.0
+
+[node name="Label" type="Label" parent="VBoxContainer/ToolProperties/BrushRadius/Value"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "0"
+align = 2
+script = ExtResource( 6 )
+
+[node name="BrushForce" type="HBoxContainer" parent="VBoxContainer/ToolProperties"]
+margin_top = 60.0
+margin_right = 198.0
+margin_bottom = 82.0
+
+[node name="Text" type="Label" parent="VBoxContainer/ToolProperties/BrushForce"]
+margin_right = 58.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+text = "Force:"
+
+[node name="ValuePercent" type="HSlider" parent="VBoxContainer/ToolProperties/BrushForce"]
+margin_left = 60.0
+margin_right = 198.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 7.0
+value = 100.0
+
+[node name="Label" type="Label" parent="VBoxContainer/ToolProperties/BrushForce/ValuePercent"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "0"
+align = 2
+script = ExtResource( 6 )
+
+[node name="ColorSimilarityThreshold" type="HBoxContainer" parent="VBoxContainer/ToolProperties"]
+margin_top = 86.0
+margin_right = 198.0
+margin_bottom = 108.0
+
+[node name="Text" type="Label" parent="VBoxContainer/ToolProperties/ColorSimilarityThreshold"]
+margin_right = 78.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 4.0
+text = "Threshold:"
+
+[node name="ValuePercent" type="HSlider" parent="VBoxContainer/ToolProperties/ColorSimilarityThreshold"]
+margin_left = 80.0
+margin_right = 198.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 6.0
+
+[node name="Label" type="Label" parent="VBoxContainer/ToolProperties/ColorSimilarityThreshold/ValuePercent"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "0"
+align = 2
+script = ExtResource( 6 )
+
+[node name="ColorSimilarityType" type="HBoxContainer" parent="VBoxContainer/ToolProperties"]
+margin_top = 112.0
+margin_right = 198.0
+margin_bottom = 134.0
+
+[node name="Text" type="Label" parent="VBoxContainer/ToolProperties/ColorSimilarityType"]
+margin_right = 78.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 4.0
+text = "Select by:"
+
+[node name="OptionButton" type="OptionButton" parent="VBoxContainer/ToolProperties/ColorSimilarityType"]
+margin_left = 80.0
+margin_right = 198.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 6.0
+text = "Composite"
+items = [ "Composite", null, false, 0, null, "RGB Red", null, false, 1, null, "RGB Green", null, false, 2, null, "RGB Blue", null, false, 3, null, "Alpha", null, false, 4, null, "HSV Hue", null, false, 5, null, "HSV Saturation", null, false, 6, null, "HSV Value", null, false, 7, null ]
+selected = 0
+
+[node name="ScaleInterpolationMode" type="HBoxContainer" parent="VBoxContainer/ToolProperties"]
+margin_top = 138.0
+margin_right = 198.0
+margin_bottom = 160.0
+
+[node name="Text" type="Label" parent="VBoxContainer/ToolProperties/ScaleInterpolationMode"]
+margin_right = 98.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+text = "Scaling type:"
+
+[node name="OptionButton" type="OptionButton" parent="VBoxContainer/ToolProperties/ScaleInterpolationMode"]
+margin_left = 100.0
+margin_right = 198.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+text = "Lanczos"
+items = [ "Nearest", null, false, 0, null, "Bilinear", null, false, 1, null, "Bicubic", null, false, 2, null, "Lanczos", null, false, 3, null ]
+selected = 3

@@ -1,0 +1,90 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=8]
+code = "shader_type canvas_item;
+render_mode blend_mix;
+
+uniform float hue;
+uniform float saturation;
+uniform float lightness;
+
+float lerp(float a, float b, float factor)
+{
+	return a * (1.0 - factor) + b * factor;
+}
+
+//Hue to RGB (red, green, blue).
+//Source: https://github.com/tobspr/GLSL-Color-Spaces/blob/master/ColorSpaces.inc.glsl
+vec3 hue2rgb(float _hue){
+	_hue = fract(_hue);
+	return clamp(vec3(
+		abs(_hue*6.-3.)-1.,
+		2.-abs(_hue*6.-2.),
+		2.-abs(_hue*6.-4.)
+	), 0.0, 1.0);
+}
+
+//RGB to HSL (hue, saturation, lightness/luminance).
+//Source: https://gist.github.com/yiwenl/745bfea7f04c456e0101
+vec3 rgb2hsl(vec3 c){
+	float cMin=min(min(c.r,c.g),c.b),
+	      cMax=max(max(c.r,c.g),c.b),
+	      delta=cMax-cMin;
+	vec3 hsl=vec3(0.,0.,(cMax+cMin)/2.);
+	if(delta!=0.0){ //If it has chroma and isn't gray.
+		if(hsl.z<.5){
+			hsl.y=delta/(cMax+cMin); //Saturation.
+		}else{
+			hsl.y=delta/(2.-cMax-cMin); //Saturation.
+		}
+		float deltaR=(((cMax-c.r)/6.)+(delta/2.))/delta,
+		      deltaG=(((cMax-c.g)/6.)+(delta/2.))/delta,
+		      deltaB=(((cMax-c.b)/6.)+(delta/2.))/delta;
+		//Hue.
+		if(c.r==cMax){
+			hsl.x=deltaB-deltaG;
+		}else if(c.g==cMax){
+			hsl.x=(1./3.)+deltaR-deltaB;
+		}else{ //if(c.b==cMax){
+			hsl.x=(2./3.)+deltaG-deltaR;
+		}
+		hsl.x=fract(hsl.x);
+	}
+	return hsl;
+}
+
+//HSL to RGB.
+//Source: https://github.com/Jam3/glsl-hsl2rgb/blob/master/index.glsl
+vec3 hsl2rgb(vec3 hsl){
+	if(hsl.y==0.){
+		return vec3(hsl.z); //Luminance.
+	}else{
+		float b;
+		if(hsl.z<.5){
+			b=hsl.z*(1.+hsl.y);
+		}else{
+			b=hsl.z+hsl.y-hsl.y*hsl.z;
+		}
+		float a=2.*hsl.z-b;
+		return a+hue2rgb(hsl.x)*(b-a);
+	}
+}
+
+void fragment() {
+	vec4 tex = texture(SCREEN_TEXTURE, SCREEN_UV);
+	vec3 hsv = rgb2hsl(tex.rgb);
+	hsv.r = fract(hsv.r + hue);
+	hsv.g = clamp(hsv.g + saturation, 0.0, 1.0);
+	hsv.b = lerp(hsv.b, 0.5 + 0.5 * sign(lightness), abs(lightness));
+	
+	COLOR = vec4(hsl2rgb(hsv), tex.a);
+}
+
+"
+
+[resource]
+render_priority = 1
+shader = SubResource( 8 )
+shader_param/hue = null
+shader_param/saturation = null
+shader_param/lightness = null

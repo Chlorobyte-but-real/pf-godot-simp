@@ -1,0 +1,126 @@
+# generikus dolgok
+width:szélesség
+height:magasság
+name:név
+background:háttér
+
+threshold:küszöb
+select by:választás
+composite:összetett
+RGB Red:RGB piros
+RGB Green:RGB zöld
+RGB Blue:RGB kék
+alpha:alfa
+HSV Hue:HSV árnyalat
+HSV Saturation:HSV telítettség
+HSV Value:HSV érték
+
+
+# Eszköztár
+selection:kijelölés
+draw:rajzolás
+transform:transzformáció
+
+
+# Rétegek
+shade:árnyalat
+blend mode:színkeverés
+normal:normál
+add:összeadás
+subtract:kivonás
+multiply:szorzás
+divide:osztás
+
+
+# Menüsor
+file:fájl
+edit:szerkesztés
+image:kép
+layer:réteg
+colors:színek
+filters:szűrők
+
+# Fájl
+new:új
+open:megnyitás
+import image to layer:kép importálása rétegként
+save project:projekt mentése
+export as image:exportálás képként
+
+# Szerkesztés
+undo:visszavonás
+redo:újra
+
+# Kép
+flip:fordít
+resize:újraméretez
+resize canvas:vászon méretezése
+scaling type:méretezés
+
+# Réteg
+invert:invertálás
+Value Invert:Érték invertálása
+resize layer boundary:réteg határainak méretezése
+layer boundary to image:réteg határai képhez
+crop layer to content:réteg vágása tartalomhoz
+
+# Színek
+radius:sugár
+force:erő
+Brightness/Contrast:Fényerő/Kontraszt
+Hue/Saturation:Árnyalat/Telítettség
+grayscale:szürkeárnyalat
+color:szín
+brightness:fényerő
+contrast:kontraszt
+hue:árnyalat
+saturation:telítettség
+lightness:világosság
+
+# Szűrők
+blur:elmosás
+border:szegély
+type:típus
+inner:belső
+middle:középső
+outer:külső
+custom shader:egyedi shader
+run custom shader:egyedi shader futtatása
+run:futtatás
+save:mentés
+load:betöltés
+save shader file:shaderfájl mentése
+open shader file:shaderfájl megnyitása
+
+# Dialógus ablakok
+ok:ok
+cancel:mégse
+
+image width:kép szélessége
+image height:kép magassága
+
+Resize Image:Kép újraméretezése
+Resize Canvas:Vászon újraméretezése
+Resize Layer:Réteg újraméretezése
+Resize Layer Boundary:Réteghatár méretezése
+
+Open a File:fájl megnyitása
+export image file:képfájl exportálása
+
+new project:új projekt
+create background layer:háttérréteg létrehozása
+create project:projekt létrehozása
+
+new layer:új réteg
+add layer:réteg hozzáadása
+opaque background:átlátszatlan háttér
+
+path:út
+Create Folder:Mappa létrehozása
+Please Confirm:Megerősítés
+All Recognized:A következők
+Directories & Files:Mappák & fájlok
+alert:riasztás
+could not create folder:mappa létrehozása sikertelen
+must use a valid extension:nem elfogadott kiterjesztés
+simp:simp

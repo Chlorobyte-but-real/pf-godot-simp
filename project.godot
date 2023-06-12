@@ -1,0 +1,164 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Tool",
+"class": "DrawTool",
+"language": "GDScript",
+"path": "res://Tools/DrawTool.gd"
+}, {
+"base": "TextureRect",
+"class": "LayerNode",
+"language": "GDScript",
+"path": "res://ImageEditLayer/Layer.gd"
+}, {
+"base": "MenuButton",
+"class": "MenuDropdown",
+"language": "GDScript",
+"path": "res://GUIWindows/Menu.gd"
+}, {
+"base": "Tool",
+"class": "SelectTool",
+"language": "GDScript",
+"path": "res://Tools/SelectTool.gd"
+}, {
+"base": "Node",
+"class": "Tool",
+"language": "GDScript",
+"path": "res://Tools/BaseTool.gd"
+} ]
+_global_script_class_icons={
+"DrawTool": "",
+"LayerNode": "",
+"MenuDropdown": "",
+"SelectTool": "",
+"Tool": ""
+}
+
+[application]
+
+config/name="Shader-based Image Manipulation Program"
+run/main_scene="res://gaming.tscn"
+boot_splash/show_image=false
+config/icon="res://icon.png"
+config/windows_native_icon="res://icon.ico"
+
+[autoload]
+
+Preferences="*res://Globals/Preferences.tscn"
+IconAssets="*res://Globals/IconAssets.tscn"
+UndoLog="*res://Globals/UndoLog.tscn"
+TranslationSystem="*res://Globals/TranslationSystem.gd"
+Utils="*res://Globals/Utils.tscn"
+Clipboard="*res://Globals/Clipboard.tscn"
+
+[debug]
+
+gdscript/warnings/return_value_discarded=false
+
+[display]
+
+window/size/width=960
+window/size/height=640
+window/dpi/allow_hidpi=true
+window/vsync/use_vsync=false
+
+[gui]
+
+common/drop_mouse_on_gui_input_disabled=true
+
+[input]
+
+ui_undo={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":true,"meta":false,"command":true,"pressed":false,"scancode":90,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+ui_redo={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":true,"control":true,"meta":false,"command":true,"pressed":false,"scancode":90,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+copy={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":true,"meta":false,"command":true,"pressed":false,"scancode":67,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+paste={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":true,"meta":false,"command":true,"pressed":false,"scancode":86,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+delete={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":16777224,"unicode":0,"echo":false,"script":null)
+ ]
+}
+cut={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":true,"meta":false,"command":true,"pressed":false,"scancode":88,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+select_all={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":true,"meta":false,"command":true,"pressed":false,"scancode":65,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+
+[input_devices]
+
+buffering/agile_event_flushing=true
+
+[mono]
+
+project/assembly_name="Shader-based Image Manipulation Program"
+
+[network]
+
+limits/debugger_stdout/max_chars_per_second=8192
+
+[physics]
+
+common/enable_pause_aware_picking=true
+3d/physics_engine="GodotPhysics"
+3d/active_soft_world=false
+3d/godot_physics/use_bvh=false
+2d/thread_model=0
+2d/use_bvh=false
+2d/bp_hash_table_size=64
+
+[rendering]
+
+quality/intended_usage/framebuffer_allocation.mobile=2
+threads/thread_model=0
+quality/directional_shadow/size=256
+quality/directional_shadow/size.mobile=256
+quality/shadow_atlas/size=256
+quality/shadow_atlas/size.mobile=256
+quality/shadow_atlas/cubemap_size=64
+quality/shadow_atlas/quadrant_0_subdiv=0
+quality/shadow_atlas/quadrant_1_subdiv=0
+quality/shadow_atlas/quadrant_2_subdiv=0
+quality/shadow_atlas/quadrant_3_subdiv=0
+quality/shadows/filter_mode=0
+quality/reflections/texture_array_reflections=false
+quality/reflections/high_quality_ggx=false
+quality/shading/force_vertex_shading=true
+quality/shading/force_lambert_over_burley=true
+quality/shading/force_blinn_over_ggx=true
+misc/mesh_storage/split_stream=true
+quality/filters/anisotropic_filter_level=1
+quality/skinning/force_software_skinning=true
+gles3/shaders/shader_cache_size_mb=128
+quality/spatial_partitioning/use_bvh=false
+quality/lightmapping/use_bicubic_sampling=false
+quality/subsurface_scattering/quality=0
+quality/depth/hdr.mobile=true
+environment/default_environment="res://default_env.tres"
